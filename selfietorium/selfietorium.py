@@ -6,7 +6,9 @@ import math
 import cairo
 import pygame
 import pygame.display
-import pygame.camera
+#import pygame.camera
+import picamera # This is the pi cam import
+import RPi.GPIO as GPIO # This is the GPIO stuff for buttons
 import rsvg
 import PIL.Image
 import sys
@@ -77,11 +79,27 @@ def load_svg(filename):
 # COMPOSITE
 # PRINT
 #
-
+def setup_GPIO():
+    GPIO.setmode(GPIO.BCM)
+    #Set up the pins
+    GPIO.setup(12,GPIO.IN,pull_up_down = GPIO.PUD_UP)
+    GPIO.setup(26,GPIO.IN,pull_up_down = GPIO.PUD_UP)
+    GPIO.setup(4,GPIO.OUT)
+    GPIO.output(4,GPIO.LOW)
 
 def picam_get_photo(cam):
     img = cam.get_image()
     return img
+
+def TakePhoto ():
+    with picamera.PiCamera() as camera:
+        camera.start_preview()
+        time.sleep(0)
+        GPIO.output(4,GPIO.HIGH)
+        camera.capture('/home/pi/Desktop/image.jpg')
+        camera.stop_preview()
+        GPIO.output(4,GPIO.LOW)
+
 
 
 def convert_surface_to_image(surface):
@@ -209,7 +227,8 @@ def attract_screen(attract_svg_data):
 
 
 def error_screen(error_svg_data, xception):
-
+    print error_svg_data    
+    print "error_svg_data"    
     my_font = pygame.font.SysFont(ERROR_FONT, SCREEN_FONT_SIZE)
     my_string = "an error has occured"
     screenGeometry = template.findGeometry(error_svg_data)
@@ -218,19 +237,19 @@ def error_screen(error_svg_data, xception):
     prompt = template.findNode(error_svg_data, '//svg:rect[@id="ErrorMessage"]')
     error_svg_data = template.deleteNode(error_svg_data, '//svg:rect[@id="ErrorMessage"]')
 
-    IMG = load_svg_string(error_svg_data)
+    #IMG = load_svg_string(error_svg_data)
 
-    promptx = int(math.floor(float(prompt.attrib['x']) * scaleWidth))
-    prompty = int(math.floor(float(prompt.attrib['y']) * scaleHeight))
-    promptWidth = int(math.ceil(float(prompt.attrib['width']) * scaleWidth))
-    promptHeight = int(math.ceil(float(prompt.attrib['height']) * scaleHeight))
-    my_rect = pygame.Rect((promptx, prompty, promptWidth, promptHeight))
-    prompt = pygameTextRectangle.render_textrect(my_string, my_font, my_rect, ERROR_FONT_COLOUR, (0, 0, 0, 0), 1)
-    screen.blit(background, (0, 0))
-    screen.blit(IMG, (0, 0))
-    screen.blit(prompt, (promptx, prompty))
-    pygame.display.flip()
-    pygame.time.delay(1000)
+    #promptx = int(math.floor(float(prompt.attrib['x']) * scaleWidth))
+    #prompty = int(math.floor(float(prompt.attrib['y']) * scaleHeight))
+    #promptWidth = int(math.ceil(float(prompt.attrib['width']) * scaleWidth))
+    #promptHeight = int(math.ceil(float(prompt.attrib['height']) * scaleHeight))
+    #my_rect = pygame.Rect((promptx, prompty, promptWidth, promptHeight))
+    #prompt = pygameTextRectangle.render_textrect(my_string, my_font, my_rect, ERROR_FONT_COLOUR, (0, 0, 0, 0), 1)
+    #screen.blit(background, (0, 0))
+    #screen.blit(IMG, (0, 0))
+    #screen.blit(prompt, (promptx, prompty))
+    #pygame.display.flip()
+    #pygame.time.delay(1000)
     print ('Error :')
     exc_type, exc_value, exc_traceback = sys.exc_info()
     traceback_template = '''Traceback (most recent call last):
@@ -271,8 +290,9 @@ def debug_print_configuration(config, photoshoot):
 
 if __name__ == '__main__':
     #Set up configuration
+    setup_GPIO()    
     config = configuration.ConfigFile("boothsettings.json")
-    SocialMedia = SendTweet.selfie_Tweet()
+    #SocialMedia = SendTweet.selfie_Tweet()
 
     config.Load()
     debug_print_configuration(config, None)
@@ -296,9 +316,14 @@ if __name__ == '__main__':
     ERROR_FONT_SIZE = config.ErrorFontSize
     ERROR_FONT_COLOUR = config.ErrorFontColour
 
-    pygame.camera.init()
-    cam = pygame.camera.Camera(pygame.camera.list_cameras()[0])
-    cam.start()
+
+
+
+    #pygame.camera.init()
+    #cam = pygame.camera.Camera(pygame.camera.list_cameras()[0])
+    #cam.start()
+    cam= picamera.PiCamera() #as camera:
+
     state = "ATTRACT"
     pygame.init()
     pygame.mixer.init(48000, -16, 1, 1024)
@@ -314,11 +339,21 @@ if __name__ == '__main__':
     cbackground = cbackground.convert()
     cbackground.fill((200, 255, 255))
 
-    SocialMedia.tweet('Starting Selfietorium...')
-
+    #SocialMedia.tweet('Starting Selfietorium...')
+        
     c = pygame.time.Clock()
     while True:
         try:
+            input_state = GPIO.input(12)
+            if input_state ==False:
+                print "Button1 Pressed"
+                print "RUN PRINT"
+            if state == "ATTRACT":
+                state = "PREEN"
+                if GPIO.input(26) == False:
+                    pygame.quit()
+                    sys.exit()
+
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:

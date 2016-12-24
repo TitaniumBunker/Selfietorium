@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1280"
+   height="1080"
+   id="svg4266"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="Instructions2.svg">
+  <defs
+     id="defs4268">
+    <linearGradient
+       id="linearGradient4800">
+      <stop
+         style="stop-color:#ececec;stop-opacity:1;"
+         offset="0"
+         id="stop4802" />
+      <stop
+         style="stop-color:#bbbfc2;stop-opacity:1;"
+         offset="1"
+         id="stop4804" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4792">
+      <stop
+         style="stop-color:#ffef00;stop-opacity:1;"
+         offset="0"
+         id="stop4794" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop4796" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="translate(3.5899734e-5,-3.0020828e-5)"
+       y2="0.34990761"
+       x2="3.5527137e-14"
+       y1="1071.3287"
+       x1="9.9475983e-14"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3061"
+       xlink:href="#linearGradient4800-8"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient4800-8">
+      <stop
+         style="stop-color:#ececec;stop-opacity:1;"
+         offset="0"
+         id="stop4802-6" />
+      <stop
+         style="stop-color:#bbbfc2;stop-opacity:1;"
+         offset="1"
+         id="stop4804-3" />
+    </linearGradient>
+    <linearGradient
+       y2="0.34990761"
+       x2="3.5527137e-14"
+       y1="1071.3287"
+       x1="9.9475983e-14"
+       gradientTransform="translate(3.0722977e-5,-3.4639969e-5)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3869"
+       xlink:href="#linearGradient4800-8"
+       inkscape:collect="always" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.17080322"
+     inkscape:cx="399.20429"
+     inkscape:cy="177.28324"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1020"
+     inkscape:window-height="552"
+     inkscape:window-x="0"
+     inkscape:window-y="36"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4271">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3799"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
+         id="flowRegion3801"><rect
+           id="rect3803"
+           width="301.69888"
+           height="202.70395"
+           x="1055.9462"
+           y="170.18927" /></flowRegion><flowPara
+         id="flowPara3805"></flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-size:144px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="20.360092"
+       y="1333.1934"
+       id="promptfont"
+       sodipodi:linespacing="125%"
+       inkscape:label="#text3807"><tspan
+         sodipodi:role="line"
+         id="tspan3809"
+         x="20.360092"
+         y="1333.1934"
+         style="font-size:144px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:My Underwood;-inkscape-font-specification:My Underwood">THIS</tspan></text>
+    <rect
+       style="fill:url(#linearGradient3869);fill-opacity:1;stroke:#000000;stroke-width:4.97875071;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect4282"
+       width="1275.021"
+       height="1075.0212"
+       x="2.4893754"
+       y="2.4893844" />
+    <rect
+       style="fill:#800080;fill-opacity:1;stroke:#000000;stroke-width:5.16952896;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="prompt"
+       width="1208.6288"
+       height="482.66537"
+       x="35.685482"
+       y="29.452181" />
+    <text
+       xml:space="preserve"
+       style="font-size:55.9264183px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:'Mom´sTypewriter';-inkscape-font-specification:'Mom´sTypewriter'"
+       x="749.62201"
+       y="577.61536"
+       id="text3027"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3029"
+         x="749.62201"
+         y="577.61536"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:My Underwood;-inkscape-font-specification:My Underwood">Next Photo in...</tspan></text>
+    <rect
+       y="567.13208"
+       x="88.170845"
+       height="424.4064"
+       width="503.00006"
+       id="picam"
+       style="fill:#00ffff;fill-opacity:1;stroke:none"
+       inkscape:label="#rect3000" />
+    <text
+       xml:space="preserve"
+       style="font-size:600.08935547px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:My Underwood;-inkscape-font-specification:My Underwood"
+       x="863.24017"
+       y="1020.3269"
+       id="countDown"
+       sodipodi:linespacing="125%"
+       inkscape:label="#text3023"><tspan
+         sodipodi:role="line"
+         id="tspan3025"
+         x="863.24017"
+         y="1020.3269"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:My Underwood;-inkscape-font-specification:My Underwood">X</tspan></text>
+  </g>
+</svg>

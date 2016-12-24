@@ -1,24 +1,25 @@
 #!/usr/bin/python
-import twitter
+#import twitter
 
 
 class selfie_Tweet:
 
 	def __init__(self):
-		self.verified = False
-		self.api = twitter.Api(
-		consumer_key='0KfOMrcL9j89rz9Mo1DJTuKNw',
-        consumer_secret='rNoX4d7OE7FzcSh3i2x6JpNwzJDaqVkuqQW0ugug5C0XdXrrwQ',
-        access_token_key='709132628339859456-ffOEOiTzIKgFglEHeqTCznr9j4ueP8G',
-        access_token_secret='vI63eF1KkG29I8uJ4ZeFxkxzEOT29jVdRzFmHX7NRKXAD')
+		pass	
+	#self.verified = False
+		#self.api = twitter.Api(
+		#consumer_key='0KfOMrcL9j89rz9Mo1DJTuKNw',
+        #consumer_secret='rNoX4d7OE7FzcSh3i2x6JpNwzJDaqVkuqQW0ugug5C0XdXrrwQ',
+        #access_token_key='709132628339859456-ffOEOiTzIKgFglEHeqTCznr9j4ueP8G',
+        #access_token_secret='vI63eF1KkG29I8uJ4ZeFxkxzEOT29jVdRzFmHX7NRKXAD')
         #api.VerifyCredentials()
         
 
 	def tweet(self,status):
-		if (self.verified):
-			#api.PostUpdate(status)
-			pass
-		else:
+		#if (self.verified):
+		#	#api.PostUpdate(status)
+		#	pass
+		#else:
 			print "posting to twitter " + status
 		
 	

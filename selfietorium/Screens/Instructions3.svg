@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1280"
+   height="1080"
+   id="svg4266"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Instructions2.svg">
+  <defs
+     id="defs4268">
+    <linearGradient
+       id="linearGradient4800">
+      <stop
+         style="stop-color:#ececec;stop-opacity:1;"
+         offset="0"
+         id="stop4802" />
+      <stop
+         style="stop-color:#bbbfc2;stop-opacity:1;"
+         offset="1"
+         id="stop4804" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4792">
+      <stop
+         style="stop-color:#ffef00;stop-opacity:1;"
+         offset="0"
+         id="stop4794" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop4796" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4800"
+       id="linearGradient4806"
+       x1="9.9475983e-014"
+       y1="1071.3287"
+       x2="3.5527137e-014"
+       y2="0.34990761"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.42426407"
+     inkscape:cx="-10.30807"
+     inkscape:cy="474.65333"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4271">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <rect
+       style="fill:url(#linearGradient4806);fill-opacity:1.0;stroke:#000000;stroke-width:4.97875070999999990;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect4282"
+       width="1275.0212"
+       height="1075.0212"
+       x="2.4893754"
+       y="2.4894073" />
+    <rect
+       style="opacity:0.722;fill:#008000;fill-opacity:1;stroke:#585858;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3008"
+       width="1175"
+       height="991.25"
+       x="52.499996"
+       y="44.375027" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4808"
+       style="font-size:64px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:'Mom´sTypewriter';-inkscape-font-specification:'Mom´sTypewriter'"
+       transform="matrix(1.4367477,0,0,1.4367477,-69.949572,-123.69792)"><flowRegion
+         id="flowRegion4810"><rect
+           id="rect4812"
+           width="1083.3334"
+           height="290"
+           x="83.333336"
+           y="110"
+           style="font-size:64px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Mom´sTypewriter';-inkscape-font-specification:'Mom´sTypewriter'" /></flowRegion><flowPara
+         id="flowPara4814"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:My Underwood;-inkscape-font-specification:My Underwood">SELFIETORIUM</flowPara></flowRoot>  </g>
+</svg>
