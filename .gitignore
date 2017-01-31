@@ -89,3 +89,7 @@
 /debian/python-selfietorium/usr/share/doc/python-selfietorium/copyright
 /debian/python-selfietorium/usr/share/man/man1/selfietorium.1.gz
 /debian/files
+/docs/_build
+/docs/_static
+/docs/_templates
+

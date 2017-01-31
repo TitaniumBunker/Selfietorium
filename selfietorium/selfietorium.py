@@ -418,7 +418,7 @@ class mainclass():
     def main_loop(self):
         #Set up configuration
         print "WIDTH " + str(self.WIDTH)
-        self.CONFIGURATION = configuration.ConfigFile("boothsettings.json")
+        self.CONFIGURATION = configuration.ConfigFile("~/boothsettings.json")
         print "WIDTH " + str(self.WIDTH)
         print "CP1"
         self.CONFIGURATION .Load()

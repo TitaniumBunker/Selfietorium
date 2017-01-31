@@ -18,24 +18,25 @@ Example:
      c.Save()
 """
 import json
-
+from os.path import expanduser
+import os.path
 
 class ConfigFile:
     """A Configuration object - this object serialises / deserialises data to
     JSON format."""
     def __init__(self, iniFile):
         """Constructor for this object."""
-        self.inifile = iniFile
-        self.layout = '../6x4.Template1.-.Linked.Files.svg'
+        self.inifile = expanduser(iniFile)
+        self.layout = 'Templates/Template1.svg'
         self.prePhotoPhrase = 'Smile'
-        self.photostore = 'Photos/'
+        self.photostore = '~/Photos/'
         self.preenTime = 5
         self.Font = "MyUnderwood"
         self.Size = 30
         self.FontColour = [125, 125, 125]
         self.photosTaken = 0
         self.sheetspercartidge = 0
-        self.shutterSound = "62491__benboncan__dslr-click.wav"
+        self.shutterSound = "Assets/62491__benboncan__dslr-click.wav"
         self.ErrorFontColour = [0, 0, 0]
         self.ErrorFont = "MyUnderwood"
         self.ErrorFontSize = 20
@@ -46,18 +47,20 @@ class ConfigFile:
         self.ACCESS_TOKEN = "<REPLACE THIS WITH YOUR ACCESS TOKEN>"
         self.ACCESS_SECRET = "<REPLACE THIS WITH YOUR ACCESS TOKEN SECRET>"
         self.CONSUMER_KEY = "<REPLACE THIS WITH YOUR API KEY>"
-        self.CONSUMER_SECRET = "<REPLCE THIS WITH YOUR API SECRET>"
+        self.CONSUMER_SECRET = "<REPLACE THIS WITH YOUR API SECRET>"
         self.TweetAuthor =  "<REPLACE THIS WITH THE SCREEN NAME OF THE ACCOUNT SELFIETORIUM TWEETS AS>"
         self.TweetHashTag =  "<REPLACE THIS WITH THE HASHTAG FOR TWEETS>"
+        if os.path.isfile(self.inifile ) == False:
+            self.Save()
 
 
     def Load(self):
         """Load data from config file into object."""
         with open(self.inifile, mode='r') as f:
             entry = json.load(f)
-            self.layout = entry['layout']
+            self.layout = expanduser(entry['layout'])
             self.prePhotoPhrase = entry['prePhotoPhrase']
-            self.photostore = entry['PhotoStore']
+            self.photostore = expanduser(entry['PhotoStore'])
             self.preenTime = entry['preenTime']
             self.photosTaken = entry['photosTaken']
             self.sheetspercartidge = entry['sheetspercartidge']
@@ -112,7 +115,7 @@ class ConfigFile:
 
 
 if __name__ == '__main__':
-    c = ConfigFile("boothsettings.test.json")
+    c = ConfigFile("~/boothsettings.test.json")
 
     c.Save()
     config = c.Load()
