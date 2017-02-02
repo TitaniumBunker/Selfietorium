@@ -18,7 +18,7 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../selfietorium'))
+sys.path.insert(0, os.path.abspath('../../selfietorium'))
 
 
 # -- General configuration ------------------------------------------------
