@@ -32,8 +32,12 @@ class selfie_Tweet(tweepy.StreamListener):
 
     @property
     def Fake_Tweet(self):
-        """Method to create a fake tweet that can be used without needing to
-        authenticate to Twitter."""
+        """
+        Method to create a fake tweet that can be used without needing to authenticate to Twitter.
+
+        :return:
+            Nothing.
+        """
         faketweet = tweepy.models.Status()
         faketweet.text = "This is a fake tweet"
         faketweet.user = tweepy.models.User()
@@ -80,6 +84,10 @@ class selfie_Tweet(tweepy.StreamListener):
                     break
 
     def on_error(self, status):
+        """
+        Method called when twitter returns an error.
+        :param status:
+        """
         print status
 
 

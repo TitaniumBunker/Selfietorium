@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding=utf-8
 
 
 from PIL import Image
@@ -13,6 +14,12 @@ class FakeCamera:
         self.cam2 = pygame.image.load("libselfietorium/eagle.jpg")
 
     def GetPhoto(self):
+        """
+        Returns a photo from the camera (by default it should be an eagle picture)
+
+        :return:
+            A photo from the picamera, converted to a surface
+        """
         return self.cam2
 
 

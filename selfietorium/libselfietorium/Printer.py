@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding=utf-8
 import cups
 
 
@@ -20,6 +21,11 @@ class Printer:
             raise ValueError('Unable to find printer : ' + printer_name)
 
     def print_photo(self, photo, print_job_name):
+        """
+        Prints a photo file using the specified job name to the printer.
+        :param photo: Photo file
+        :param print_job_name: Job Name
+        """
         self.conn.printFile(self.printer_name, photo, print_job_name, {})
 
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding=utf-8
 #
 # Copyright 2007-2013 The Python-Twitter Developers
 #
@@ -24,6 +25,11 @@ SIGNIN_URL = 'https://api.twitter.com/oauth/authenticate'
 
 
 def get_access_token(consumer_key, consumer_secret):
+    """
+     Contacts twitter, and obtains a set of authentication tokens.
+    :param consumer_key:
+    :param consumer_secret:
+    """
     oauth_client = OAuth1Session(consumer_key, client_secret=consumer_secret, callback_uri='oob')
 
     print('\nRequesting temp token from Twitter...\n')
@@ -67,6 +73,9 @@ def get_access_token(consumer_key, consumer_secret):
 
 
 def main():
+    """
+    Utility to obtain a set of twitter authentication tokens
+    """
     consumer_key = raw_input('Enter your consumer key: ')
     consumer_secret = raw_input('Enter your consumer secret: ')
     get_access_token(consumer_key, consumer_secret)

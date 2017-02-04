@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding=utf-8
 import importlib
 import math
 import cairo
@@ -18,11 +19,18 @@ import StringIO
 import os
 import traceback
 
+
 class GetOutOfLoop( Exception ):
+    """Exception used to allow Selfietorium to exit loops."""
     pass
 
 
 class ScreenElelement():
+
+    """
+    Object that describes a screen element, and its position on the screen.
+
+    """
 
     def __init__(self, image, x, y):
         self.image = image
@@ -31,6 +39,10 @@ class ScreenElelement():
 
 
 class mainclass():
+    """
+    Main code for Selfietorium.
+    """
+
     def __init__(self):
         # Constants
         self.WIDTH = 640                     # Width of the window
@@ -49,12 +61,22 @@ class mainclass():
         self.CONFIGURATION = None
 
     def bgra_rgba(self, surface):
+        """
+
+        :param surface:
+        :return:
+        """
         img = PIL.Image.frombuffer('RGBA', (surface.get_width(),
               surface.get_height()), surface.get_data(),
               'raw', 'BGRA', 0, 1)
         return img.tobytes('raw', 'RGBA', 0, 1)
 
     def load_svg_string(self, svg_data):
+        """
+
+        :param svg_data:
+        :return:
+        """
         svg = rsvg.Handle(data=svg_data)
         img_w, img_h = svg.props.width, svg.props.height
         scale_factorx = float(self.WIDTH) / float(img_w)
@@ -95,6 +117,11 @@ class mainclass():
 #    return img
 
     def convert_surface_to_image(self, surface):
+        """
+
+        :param surface:
+        :return:
+        """
         width = surface.get_width() # 640
         height = surface.get_height() # 480
         pil = pygame.image.tostring(surface, "RGBA", False)
@@ -134,6 +161,12 @@ class mainclass():
 # Screen methods
 
     def save_svg_to_img(self, svg, outputdir, filename):
+        """
+
+        :param svg:
+        :param outputdir:
+        :param filename:
+        """
         IMG = self.load_svg_string(svg)
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(IMG, (0, 0))
@@ -142,6 +175,11 @@ class mainclass():
         self.savephoto(outputdir, IMG, filename)
 
     def load_image_from_url_as_B64(self,source):
+        """
+
+        :param source:
+        :return:
+        """
         from urllib2 import urlopen
         import io
         image_str = urlopen(source).read()
@@ -157,6 +195,11 @@ class mainclass():
         return str_b64
 
     def twitter_latest(self, svg, imagesvg):
+        """
+        Twitter Screen - displays the latest tweet.
+        :param svg:
+        :param imagesvg:
+        """
         screenElements = []
         try:
             svg_loaded = rsvg.Handle(data=svg)
@@ -224,6 +267,11 @@ class mainclass():
             pass
 
     def show_screen_elements(self,elemenets,time):
+        """
+        Shows screen elements on the screen for a period of time.
+        :param elemenets: List of ScreenElements to show on the screen.
+        :param time: Time in Seconds
+        """
         start = pygame.time.get_ticks()
         while  pygame.time.get_ticks() - start < (time *1000):
             self.event_logic()
@@ -234,6 +282,11 @@ class mainclass():
             self.c.tick(30)
 
     def show_screen(self,IMG,time):
+        """
+        Shows a screen for a number of seconds
+        :param IMG:
+        :param time:
+        """
         start = pygame.time.get_ticks()
         while  pygame.time.get_ticks() - start < (time *1000):
             self.event_logic()
@@ -242,6 +295,9 @@ class mainclass():
             self.c.tick(30)
 
     def event_logic(self):
+        """
+        Event logic - determining what events to activate based on key presses.
+        """
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
@@ -265,6 +321,13 @@ class mainclass():
 
 
     def preen_screen(self, photoshoot, svg_data, preentime=10):
+        """
+        Preen Screen - allows the subjects the time to pose and get ready for their photo.
+        :param photoshoot:
+        :param svg_data:
+        :param preentime:
+        :return:
+        """
         try:
             ShootTime = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
             self.SHOOTDIRECTORY = os.path.join(self.SHOOTPHOTOSTORE, ShootTime)
@@ -340,6 +403,10 @@ class mainclass():
             return "ATTRACT"
 
     def attract_screen(self, attract_svg_data):
+        """
+
+        :param attract_svg_data:
+        """
         IMG = self.load_svg_string(attract_svg_data)
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(IMG, (0, 0))
@@ -347,6 +414,11 @@ class mainclass():
         #c.tick(40)
 
     def error_screen(self, error_svg_data, xception):
+        """
+
+        :param error_svg_data:
+        :param xception:
+        """
         screenElements = []
         my_font = pygame.font.SysFont(self.ERROR_FONT, self.SCREEN_FONT_SIZE)
         my_string = "an error has occured"
@@ -417,6 +489,9 @@ class mainclass():
 
     def main_loop(self):
         #Set up configuration
+        """
+        main pygame loop.
+        """
         print "WIDTH " + str(self.WIDTH)
         self.CONFIGURATION = configuration.ConfigFile("~/boothsettings.json")
         print "WIDTH " + str(self.WIDTH)

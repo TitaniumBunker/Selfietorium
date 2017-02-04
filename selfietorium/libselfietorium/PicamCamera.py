@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding=utf-8
 
 import picamera
 import io
@@ -14,6 +15,12 @@ class PicamCamera:
         self.stream = io.BytesIO()
 
     def GetPhoto(self):
+        """
+        Returns a photo from the PiCam module.
+
+        :return:
+            A photo from the picamera, converted to a surface
+        """
         self.cam.capture(self.stream, format='jpeg')
         self.stream.seek(0)
         img = Image.open(self.stream)

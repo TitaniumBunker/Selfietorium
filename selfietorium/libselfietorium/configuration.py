@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding=utf-8
 """
 A library that provides configuration loading and saving for the selfietorium project
 
