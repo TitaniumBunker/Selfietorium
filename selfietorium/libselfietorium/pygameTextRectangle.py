@@ -3,7 +3,7 @@
 
 class TextRectException:
     """
-
+    Exception thrown if text is too large to fit within the drawn recatangle
     """
 
     def __init__(self, message = None):
