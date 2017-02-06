@@ -1,4 +1,4 @@
-"""A setuptools based setup module.
+s"""A setuptools based setup module.
 See:
 https://packaging.python.org/en/latest/distributing.html
 https://github.com/pypa/sampleproject
@@ -107,7 +107,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'sample=sample:main',
+            'selfietorium=selfietorium.selfietorium:main_func',
         ],
     },
 )

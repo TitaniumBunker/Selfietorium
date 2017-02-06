@@ -39,6 +39,11 @@ class ScreenElelement():
 
 
 class mainclass():
+
+
+
+
+
     """
     Main code for Selfietorium.
     """
@@ -366,7 +371,7 @@ class mainclass():
                     #photo = picam_get_photo(cam)
                     end = datetime.datetime.now()
                     preentimeSpent = (end - start).seconds
-                    if preentime - preentimeSpent == 0:
+                    if preentime - preentimeSpent < 1:
                         break
                     svg_data = template.updateNode(svg_data, 'countDown',
                                                        str(preentime - preentimeSpent))
@@ -599,7 +604,9 @@ class mainclass():
             finally:
                 self.c.tick(30)
 
-
+def main_func():
+    mc = mainclass()
+    mc.main_loop()
 
 if __name__ == '__main__':
     mc = mainclass()
