@@ -1,4 +1,4 @@
-s"""A setuptools based setup module.
+"""A setuptools based setup module.
 See:
 https://packaging.python.org/en/latest/distributing.html
 https://github.com/pypa/sampleproject
