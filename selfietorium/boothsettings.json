@@ -11,6 +11,8 @@
   "photosTaken": 0,
   "CameraModule": "libselfietorium.USBCamera", 
   "CameraFile": "USBCamera", 
+  "FlashModule" : "libselfietorium.Flash"
+  "FlashFile" : "Flash"
   "preenTime": 5,
   "Font": "CF Anarchy",
   "PhotoStore": "Photos/",

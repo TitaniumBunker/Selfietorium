@@ -61,7 +61,10 @@ class mainclass():
         self.FONT_COLOUR = None              # Colour to display updated text to subjects
         self.TWEET_TEXT = ""                 # Default tweet text to use when
                                              # tweeting pictures.
-        self.mymethod = None
+        self.mymethod = None                 # Method to take a photo
+        self.flashOnMethod = None            # Method to activate the flash
+        self.flashOffMethod = None           # Method to deactivate the flash
+        
         self.background = None               # black image for clearing the screen
         self.CONFIGURATION = None
 
@@ -367,8 +370,9 @@ class mainclass():
 
                 preentimeSpent = (end - start).seconds
                 while preentime - preentimeSpent > 0:
+                    self.flashOnMethod.flash_on()
                     photo = self.mymethod.GetPhoto()
-                    #photo = picam_get_photo(cam)
+                    self.flashOnMethod.flash_off()
                     end = datetime.datetime.now()
                     preentimeSpent = (end - start).seconds
                     if preentime - preentimeSpent < 1:
@@ -531,6 +535,8 @@ class mainclass():
         self.ERROR_FONT_COLOUR = self.CONFIGURATION.ErrorFontColour
         self.CAMERA_MODULE = self.CONFIGURATION.CameraModule
         self.CAMERA_MODULE_FILE = self.CONFIGURATION .CameraFile
+        self.FLASH_MODULE = self.CONFIGURATION.FlashModule
+        self.FLASH_MODULE_FILE = self.CONFIGURATION .FlashFile
         self.ACCESS_TOKEN = self.CONFIGURATION.ACCESS_TOKEN
         self.ACCESS_SECRET = self.CONFIGURATION.ACCESS_SECRET
         self.CONSUMER_KEY = self.CONFIGURATION.CONSUMER_KEY
@@ -550,6 +556,12 @@ class mainclass():
 
         self.CamerObject = importlib.import_module(self.CAMERA_MODULE )
         self.mymethod = getattr(importlib.import_module(self.CAMERA_MODULE ), self.CAMERA_MODULE_FILE)()
+
+        self.FlashObject = importlib.import_module(self.FLASH_MODULE )
+        self.flashMethod = getattr(importlib.import_module(self.FLASH_MODULE ), self.FLASH_MODULE_FILE)()
+
+
+
 
         self.state = "ATTRACT"
         pygame.init()

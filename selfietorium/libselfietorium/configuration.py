@@ -44,6 +44,8 @@ class ConfigFile:
         self.TweetPhrase = "I just took this photo... #selfietorium_test"
         self.CameraModule = "libselfietorium.USBCamera"
         self.CameraFile = "USBCamera"
+        self.FlashModule = "libselfietorium.Flash"
+        self.FlashFile = "Flash"
         self.PrinterName = "PDF"
         self.ACCESS_TOKEN = "<REPLACE THIS WITH YOUR ACCESS TOKEN>"
         self.ACCESS_SECRET = "<REPLACE THIS WITH YOUR ACCESS TOKEN SECRET>"
@@ -75,6 +77,8 @@ class ConfigFile:
             self.TweetPhrase = entry['TweetPhrase']
             self.CameraModule = entry['CameraModule']
             self.CameraFile = entry['CameraFile']
+            self.FlashModule = entry['FlashModule']
+            self.FlashFile = entry['FlashFile']
             self.PrinterName = entry['PrinterName']
             self.ACCESS_TOKEN = entry['ACCESS_TOKEN']
             self.ACCESS_SECRET = entry['ACCESS_SECRET']
@@ -103,6 +107,8 @@ class ConfigFile:
         configuration['TweetPhrase'] = self.TweetPhrase
         configuration['CameraModule'] = self.CameraModule
         configuration['CameraFile'] = self.CameraFile
+        configuration['FlashModule'] = self.FlashModule
+        configuration['FlashFile'] = self.FlashFile
         configuration['PrinterName'] = self.PrinterName
         configuration['ACCESS_TOKEN'] = self.ACCESS_TOKEN
         configuration['ACCESS_SECRET'] = self.ACCESS_SECRET
