@@ -64,7 +64,7 @@ class mainclass():
         self.mymethod = None                 # Method to take a photo
         self.flashOnMethod = None            # Method to activate the flash
         self.flashOffMethod = None           # Method to deactivate the flash
-        
+
         self.background = None               # black image for clearing the screen
         self.CONFIGURATION = None
 
@@ -501,13 +501,8 @@ class mainclass():
         """
         main pygame loop.
         """
-        print "WIDTH " + str(self.WIDTH)
         self.CONFIGURATION = configuration.ConfigFile("~/boothsettings.json")
-        print "WIDTH " + str(self.WIDTH)
-        print "CP1"
         self.CONFIGURATION .Load()
-        print "WIDTH " + str(self.WIDTH)
-
         self.debug_print_configuration(self.CONFIGURATION , None)
         #Set up variables
         self.SHOOTPHOTOSTORE = self.CONFIGURATION .photostore
@@ -585,30 +580,31 @@ class mainclass():
         self.c = pygame.time.Clock()
         while True:
             try:
-                for event in pygame.event.get():
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_q:
-                            pygame.quit()
-                            sys.exit()
-                        elif event.key == pygame.K_p:
-                            if self.state == "ATTRACT" or self.state =="TWEET" :
-                                self.state = "PREEN"
-                        elif event.key == pygame.K_s:
-                            self.CAMERASOUND.play()
-                        elif event.key == pygame.K_t:
-                            self.state = "TWEET"
-                        elif event.key == pygame.K_e:
-                            #ErrorScreen(SCREEN_ERROR)
-                            raise ValueError('A very specific bad thing happened')
+                self.event_logic()
+                #for event in pygame.event.get():
+                    #if event.type == pygame.KEYDOWN:
+                        #if event.key == pygame.K_q:
+                            #pygame.quit()
+                            #sys.exit()
+                        #elif event.key == pygame.K_p:
+                            #if self.state == "ATTRACT" or self.state =="TWEET" :
+                                #self.state = "PREEN"
+                        #elif event.key == pygame.K_s:
+                            #self.CAMERASOUND.play()
+                        #elif event.key == pygame.K_t:
+                            #self.state = "TWEET"
+                        #elif event.key == pygame.K_e:
+                            ##ErrorScreen(SCREEN_ERROR)
+                            #raise ValueError('A very specific bad thing happened')
 
-                if self.state == "ATTRACT":
-                    self.attract_screen(self.SCREEN_ATTRACT)
-                if self.state == "TWEET":
-                    self.twitter_latest(self.SCREEN_TWITTER,self.SCREEN_TWITTER_IMAGE)
-                    self.state = "ATTRACT"
-                if self.state == "PREEN":
-                    self.state = self.preen_screen(photoshoot, self.SCREEN_PREEN,
-                                            self.CONFIGURATION.preenTime)
+                #if self.state == "ATTRACT":
+                    #self.attract_screen(self.SCREEN_ATTRACT)
+                #if self.state == "TWEET":
+                    #self.twitter_latest(self.SCREEN_TWITTER,self.SCREEN_TWITTER_IMAGE)
+                    #self.state = "ATTRACT"
+                #if self.state == "PREEN":
+                    #self.state = self.preen_screen(photoshoot, self.SCREEN_PREEN,
+                                            #self.CONFIGURATION.preenTime)
             except Exception as e:
                 self.error_screen(self.SCREEN_ERROR, e)
 
