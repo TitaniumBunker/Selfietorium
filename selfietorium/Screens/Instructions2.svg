@@ -10,11 +10,11 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1280"
-   height="1080"
+   width="768"
+   height="614.40002"
    id="svg4266"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="0.92.1 r15371"
    sodipodi:docname="Instructions2.svg">
   <defs
      id="defs4268">
@@ -61,15 +61,76 @@
          offset="1"
          id="stop4804-3" />
     </linearGradient>
-    <linearGradient
-       y2="0.34990761"
-       x2="3.5527137e-14"
-       y1="1071.3287"
-       x1="9.9475983e-14"
-       gradientTransform="translate(3.0722977e-5,-3.4639969e-5)"
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3189-4-1"
+       id="radialGradient3801"
        gradientUnits="userSpaceOnUse"
-       id="linearGradient3869"
-       xlink:href="#linearGradient4800-8"
+       gradientTransform="matrix(-0.35459578,0.01113833,-0.01539977,-0.49026112,592.33468,-32.1919)"
+       cx="592.24304"
+       cy="344.30774"
+       fx="592.24304"
+       fy="344.30774"
+       r="1775.8438" />
+    <linearGradient
+       id="linearGradient3189-4-1">
+      <stop
+         id="stop3191-8-7"
+         offset="0"
+         style="stop-color:#c0e2f4;stop-opacity:1" />
+      <stop
+         style="stop-color:#c0e2f4;stop-opacity:1"
+         offset="0.19110112"
+         id="stop3193-8-1" />
+      <stop
+         id="stop3195-2-1"
+         offset="0.65243429"
+         style="stop-color:#c0e2f4;stop-opacity:1;" />
+      <stop
+         id="stop3197-4-5"
+         offset="1"
+         style="stop-color:#7ca6bd;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3189-4-1-4"
+       id="radialGradient3801-0"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.35459578,0.01113833,-0.01539977,-0.49026112,592.33468,-32.1919)"
+       cx="592.24304"
+       cy="344.30774"
+       fx="592.24304"
+       fy="344.30774"
+       r="1775.8438" />
+    <linearGradient
+       id="linearGradient3189-4-1-4">
+      <stop
+         id="stop3191-8-7-8"
+         offset="0"
+         style="stop-color:#c0e2f4;stop-opacity:1" />
+      <stop
+         style="stop-color:#c0e2f4;stop-opacity:1"
+         offset="0.19110112"
+         id="stop3193-8-1-7" />
+      <stop
+         id="stop3195-2-1-1"
+         offset="0.65243429"
+         style="stop-color:#c0e2f4;stop-opacity:1;" />
+      <stop
+         id="stop3197-4-5-7"
+         offset="1"
+         style="stop-color:#7ca6bd;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient
+       r="1775.8438"
+       fy="344.30774"
+       fx="592.24304"
+       cy="344.30774"
+       cx="592.24304"
+       gradientTransform="matrix(-0.3782355,0.01188089,-0.01642642,-0.52294519,631.82366,503.26197)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3202-2"
+       xlink:href="#linearGradient3189-4-1-4"
        inkscape:collect="always" />
   </defs>
   <sodipodi:namedview
@@ -79,17 +140,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.17080322"
-     inkscape:cx="399.20429"
-     inkscape:cy="177.28324"
+     inkscape:zoom="0.64062564"
+     inkscape:cx="240.26466"
+     inkscape:cy="382.83508"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1020"
-     inkscape:window-height="552"
-     inkscape:window-x="0"
-     inkscape:window-y="36"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="1375"
+     inkscape:window-height="876"
+     inkscape:window-x="1431"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     units="px" />
   <metadata
      id="metadata4271">
     <rdf:RDF>
@@ -105,76 +167,82 @@
   <g
      id="layer1"
      inkscape:label="Layer 1"
-     inkscape:groupmode="layer">
-    <flowRoot
+     inkscape:groupmode="layer"
+     style="display:inline">
+    <g
+       id="g50"
+       transform="translate(-0.12463666,-537.59998)">
+      <path
+         inkscape:connector-curvature="0"
+         id="rect3841-4"
+         d="M 0,536.53336 V 1152 H 768.53333 V 536.53336 Z"
+         style="display:inline;fill:#efeae0;fill-opacity:1;stroke:none;stroke-width:1.06666672;enable-background:new" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3030"
+         d="m 0.26666667,536.53333 v 55.76672 L 85.766667,536.53333 Z m 171.93333333,0 -171.93333333,154.2 v 87.53334 L 217.1,536.53333 Z m 95.43333,0 L 0.26666667,946.50005 V 1122.7001 L 297.5,536.53333 Z m 67.1,0 -201.3,615.46667 h 95.7 L 358.7,536.53333 Z m 56.23334,0 L 357.53333,1152 H 446.8 L 413.36667,536.53333 Z m 54.66666,0 L 575.2,1152 h 95.7 L 469.6,536.53333 Z m 61.16667,0 262,516.66667 V 892.46667 L 536.66667,536.53333 Z m 80.43333,0 L 768.8,738.96672 V 659.10005 L 632.13333,536.53333 Z m 131.3,0 50.26667,32.76672 v -32.76672 z"
+         style="display:inline;fill:url(#radialGradient3202-2);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.06666672;enable-background:new" />
+    </g>
+    <text
        xml:space="preserve"
-       id="flowRoot3799"
-       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
-         id="flowRegion3801"><rect
-           id="rect3803"
-           width="301.69888"
-           height="202.70395"
-           x="1055.9462"
-           y="170.18927" /></flowRegion><flowPara
-         id="flowPara3805"></flowPara></flowRoot>    <text
-       xml:space="preserve"
-       style="font-size:144px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="20.360092"
-       y="1333.1934"
+       style="font-style:normal;font-weight:normal;font-size:12.80000019px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.06666672"
+       x="134.10757"
+       y="320.02518"
        id="promptfont"
-       sodipodi:linespacing="125%"
        inkscape:label="#text3807"><tspan
          sodipodi:role="line"
          id="tspan3809"
-         x="20.360092"
-         y="1333.1934"
-         style="font-size:144px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:My Underwood;-inkscape-font-specification:My Underwood">THIS</tspan></text>
+         x="134.10757"
+         y="320.02518"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:153.6000061px;line-height:1.25;font-family:'My Underwood';-inkscape-font-specification:'My Underwood';stroke-width:1.06666672">THIS</tspan></text>
     <rect
-       style="fill:url(#linearGradient3869);fill-opacity:1;stroke:#000000;stroke-width:4.97875071;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       id="rect4282"
-       width="1275.021"
-       height="1075.0212"
-       x="2.4893754"
-       y="2.4893844" />
+       y="131.00067"
+       x="40"
+       height="463.39935"
+       width="549.21393"
+       id="picam"
+       style="display:none;fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:1.06666672"
+       inkscape:label="#rect3000" />
     <rect
-       style="fill:#800080;fill-opacity:1;stroke:#000000;stroke-width:5.16952896;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#800080;fill-opacity:1;stroke:#000000;stroke-width:1.03188002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="prompt"
-       width="1208.6288"
-       height="482.66537"
-       x="35.685482"
-       y="29.452181" />
+       width="712.61499"
+       height="32.616741"
+       x="27.967869"
+       y="54.700069" />
     <text
        xml:space="preserve"
-       style="font-size:55.9264183px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:'Mom´sTypewriter';-inkscape-font-specification:'Mom´sTypewriter'"
-       x="749.62201"
-       y="577.61536"
-       id="text3027"
-       sodipodi:linespacing="125%"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.80000019px;line-height:0%;font-family:Mom´sTypewriter;-inkscape-font-specification:Mom´sTypewriter;letter-spacing:0px;word-spacing:0px;fill:#ec0f0f;fill-opacity:1;stroke:none;stroke-width:1.06666672"
+       x="660.91736"
+       y="363.59415"
+       id="text3027"><tspan
          sodipodi:role="line"
          id="tspan3029"
-         x="749.62201"
-         y="577.61536"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:My Underwood;-inkscape-font-specification:My Underwood">Next Photo in...</tspan></text>
-    <rect
-       y="567.13208"
-       x="88.170845"
-       height="424.4064"
-       width="503.00006"
-       id="picam"
-       style="fill:#00ffff;fill-opacity:1;stroke:none"
-       inkscape:label="#rect3000" />
+         x="660.91736"
+         y="363.59415"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25.50452995px;line-height:1.25;font-family:Mom´sTypewriter;-inkscape-font-specification:Mom´sTypewriter;fill:#ec0f0f;fill-opacity:1;stroke-width:1.06666672">Next </tspan><tspan
+         sodipodi:role="line"
+         x="660.91736"
+         y="395.47482"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25.50452995px;line-height:1.25;font-family:Mom´sTypewriter;-inkscape-font-specification:Mom´sTypewriter;fill:#ec0f0f;fill-opacity:1;stroke-width:1.06666672"
+         id="tspan3006">Photo </tspan><tspan
+         sodipodi:role="line"
+         x="660.91736"
+         y="427.3555"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25.50452995px;line-height:1.25;font-family:Mom´sTypewriter;-inkscape-font-specification:Mom´sTypewriter;fill:#ec0f0f;fill-opacity:1;stroke-width:1.06666672"
+         id="tspan3014">in:</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:600.08935547px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:My Underwood;-inkscape-font-specification:My Underwood"
-       x="863.24017"
-       y="1020.3269"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.80000019px;line-height:0%;font-family:Agreloy;-inkscape-font-specification:Agreloy;letter-spacing:0px;word-spacing:0px;fill:#ec0f0f;fill-opacity:1;stroke:none;stroke-width:1.06666672"
+       x="799.97418"
+       y="448.40329"
        id="countDown"
-       sodipodi:linespacing="125%"
-       inkscape:label="#text3023"><tspan
+       inkscape:label="#text3023"
+       transform="scale(0.82360119,1.2141799)"><tspan
          sodipodi:role="line"
          id="tspan3025"
-         x="863.24017"
-         y="1020.3269"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:My Underwood;-inkscape-font-specification:My Underwood">X</tspan></text>
+         x="799.97418"
+         y="448.40329"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:153.20344543px;line-height:1.25;font-family:Agreloy;-inkscape-font-specification:Agreloy;fill:#ec0f0f;fill-opacity:1;stroke-width:1.06666672">X</tspan></text>
   </g>
 </svg>

@@ -17,7 +17,12 @@ import datetime
 import base64
 import StringIO
 import os
+from os.path import dirname
 import traceback
+
+#import RPi.GPIO as GPIO
+
+
 
 
 class GetOutOfLoop( Exception ):
@@ -50,8 +55,10 @@ class mainclass():
 
     def __init__(self):
         # Constants
-        self.WIDTH = 640                     # Width of the window
-        self.HEIGHT = 540                    # Height of the window
+        #size = pygame.display.list_modes()[0]
+#screen = pygame.display.set_mode(size,pg.FULLSCREEN)
+        self.WIDTH =  720                    # Width of the window
+        self.HEIGHT = 576                    # Height of the window
         self.DPI = 90                        # Recalculate this based on your screen.
         self.SHOOTDIRECTORY = None           # Name of directory to store photographs taken
         self.PHOTOSOUNDEFFECT = None         # Sound effect to play when taking photo
@@ -61,12 +68,13 @@ class mainclass():
         self.FONT_COLOUR = None              # Colour to display updated text to subjects
         self.TWEET_TEXT = ""                 # Default tweet text to use when
                                              # tweeting pictures.
-        self.mymethod = None                 # Method to take a photo
-        self.flashOnMethod = None            # Method to activate the flash
-        self.flashOffMethod = None           # Method to deactivate the flash
-
+        self.mymethod = None
         self.background = None               # black image for clearing the screen
         self.CONFIGURATION = None
+        #GPIO SETUP
+        #GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering  
+        #GPIO.setup(26, GPIO.IN,pull_up_down=GPIO.PUD_UP)    # set GPIO 25 as input  
+        #GPIO.setup(12, GPIO.IN,pull_up_down=GPIO.PUD_UP)    # set GPIO 12 as input
 
     def bgra_rgba(self, surface):
         """
@@ -85,6 +93,7 @@ class mainclass():
         :param svg_data:
         :return:
         """
+	
         svg = rsvg.Handle(data=svg_data)
         img_w, img_h = svg.props.width, svg.props.height
         scale_factorx = float(self.WIDTH) / float(img_w)
@@ -108,6 +117,15 @@ class mainclass():
         return pygame.image.frombuffer(self.bgra_rgba(surface), (self.WIDTH,self.HEIGHT), 'RGBA')
 
 
+    def photo_to_b64(self,photo):
+        imgPhoto = self.convert_surface_to_image(photo)
+        output = StringIO.StringIO()
+        imgPhoto.save(output, format="PNG")
+        contents = output.getvalue()
+        output.close()
+        base64data = base64.b64encode(contents)
+        str_b64 = "data:image/png;base64," + base64data
+        return str_b64
 # This is a poor state implementation - a better implementation will be
 #worked out in due course
 #Valid States are :
@@ -119,10 +137,6 @@ class mainclass():
 # PRINT
 #
 
-
-#def picam_get_photo(cam):
-#    img = cam.get_image()
-#    return img
 
     def convert_surface_to_image(self, surface):
         """
@@ -163,10 +177,28 @@ class mainclass():
         text_file = open(os.path.join(outputdir, "Output.svg"), "w")
         text_file.write(update_node)
         text_file.close()
-        self.save_svg_to_img(update_node, outputdir, "Composite.png")
+        self.save_svgfile_to_img(outputdir,"Output.svg", outputdir, "Composite.png")
         return os.path.join(outputdir, "Composite.png")
 
 # Screen methods
+    def save_svgfile_to_img(self, outputdir, svgfile, destination_outputdir, destination_filename):
+        """
+        :param svg:
+        :param outputdir:
+        :param filename:
+        """
+	cmf = 'convert %s %s' % ( os.path.join(outputdir, svgfile), os.path.join(destination_outputdir, destination_filename))
+	     
+	import subprocess
+	subprocess.call (cmf,preexec_fn=os.setsid, shell=True)
+	IMG = pygame.image.load(os.path.join(destination_outputdir, destination_filename))	
+	IMG = pygame.transform.scale(IMG, pygame.Rect((0,0),(self.WIDTH, self.HEIGHT)).size)
+	IMG = IMG.convert()
+        self.screen.blit(self.background, (0, 0))
+        self.screen.blit(IMG, (0, 0))
+        pygame.display.flip()
+        pygame.time.delay(2000)
+
 
     def save_svg_to_img(self, svg, outputdir, filename):
         """
@@ -308,10 +340,12 @@ class mainclass():
         """
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
+                if event.key == pygame.K_q :#or
+                #if not GPIO.input(12):
                     pygame.quit()
                     sys.exit()
-                elif event.key == pygame.K_p:
+                elif event.key == pygame.K_p : #or
+                #elif not GPIO.input(26):
                     if self.state == "ATTRACT" or self.state =="TWEET" :
                         self.state = "PREEN"
                         raise GetOutOfLoop
@@ -342,12 +376,12 @@ class mainclass():
             screenGeometry = template.findGeometry(svg_data)
             scaleWidth = float(float(self.WIDTH) / float(screenGeometry[0]))
             scaleHeight = float(float(self.HEIGHT) / float(screenGeometry[1]))
+            
             picam = template.findNode(svg_data, '//svg:rect[@id="picam"]')
             pcamWidth = int(math.ceil(float(picam.attrib['width']) * scaleWidth))
             pcamHeight = int(math.ceil(float(picam.attrib['height']) * scaleHeight))
             picamx = int(math.floor(float(picam.attrib['x']) * scaleWidth))
             picamy = int(math.floor(float(picam.attrib['y']) * scaleHeight))
-
             prompt = template.findNode(svg_data, '//svg:rect[@id="prompt"]')
 
             svg_data = template.deleteNode(svg_data, '//svg:rect[@id="prompt"]')
@@ -359,20 +393,38 @@ class mainclass():
             promptHeight = int(math.ceil(float(prompt.attrib['height']) * scaleHeight))
 
             for shot in photoshoot:
-                print "Taking a photo"
-                my_font = pygame.font.SysFont(self.SCREEN_FONT, self.SCREEN_FONT_SIZE)
+                print (str(self.SCREEN_FONT))
+                print (str(self.SCREEN_FONT_SIZE))
+                if not pygame.font:
+                    raise RuntimeError("no pygame font module")
+                if not pygame.font.get_init():
+                    pygame.font.init()
+                if not pygame.font.get_init():
+                    raise RuntimeError("pygame doesn't init")
+                my_font = pygame.font.SysFont(None, self.SCREEN_FONT_SIZE)
+                #my_font=pygame.font.SysFont("FreeMono",50)
+                #my_font = pygame.font.Font("/home/mike/.local/share/fonts/MyUnderwood.ttf",30)
                 my_string = str(shot.title) or self.CONFIGURATION.prePhotoPhrase
                 my_rect = pygame.Rect((promptx, prompty, promptWidth, promptHeight))
-                prompt = pygameTextRectangle.render_textrect(my_string, my_font,
+                print ("Taking a photo" + my_string)
+                print str(dir(my_font))
+		#//my_font = pygame.font.Font(None, 22)
+                print pygame.font.match_font('MyUnderwood')
+                #if (pygame.font.match_font('MyUnderwood') != None):
+                DIRNAME = os.path.join(dirname(__file__), "resources",)
+                #my_font = pygame.font.Font('/home/mike/.local/share/fonts/MyUnderwood.ttf', 30)
+                #my_font = pygame.font.Font((os.path.join(DIRNAME, "font", "MyUnderwood.ttf"), 8))
+		#my_string = "Hi there! I'm a nice bit of wordwrapped text. Won't you be my friend? Honestly, wordwrapping is easy, with David's fancy new render_textrect () function.\nThis is a new line.\n\nThis is another one.\n\n\nAnother line, you lucky dog."
+                #my_rect = pygame.Rect((40, 40, 300, 300))
+                #prompt = pygameTextRectangle.render_textrect(my_string, my_font, my_rect, (216, 216, 216), (48, 48, 48), 0)
+		prompt = pygameTextRectangle.render_textrect(my_string, my_font,
                     my_rect, self.SCREEN_FONT_COLOUR, (0, 0, 0, 0), 1)
                 start = datetime.datetime.now()
                 end = datetime.datetime.now()
 
                 preentimeSpent = (end - start).seconds
                 while preentime - preentimeSpent > 0:
-                    self.flashOnMethod.flash_on()
                     photo = self.mymethod.GetPhoto()
-                    self.flashOnMethod.flash_off()
                     end = datetime.datetime.now()
                     preentimeSpent = (end - start).seconds
                     if preentime - preentimeSpent < 1:
@@ -380,14 +432,13 @@ class mainclass():
                     svg_data = template.updateNode(svg_data, 'countDown',
                                                        str(preentime - preentimeSpent))
                     IMG = self.load_svg_string(svg_data)
-                    self.screen.blit(self.background, (0, 0))
                     self.screen.blit(IMG, (0, 0))
+                    self.screen.blit(prompt, my_rect.topleft)
                     self.screen.blit(pygame.transform.scale(photo,
                                      (pcamWidth, pcamHeight)), (picamx, picamy))
                     shot.image = photo
-                    self.screen.blit(prompt, (promptx, prompty))
                     pygame.display.flip()
-                    pygame.time.delay(25)
+                    pygame.time.delay(1)
                 self.CAMERASOUND.play()
                 shot.photo = photo
                 self.savephoto(self.SHOOTDIRECTORY, photo, shot.imageID + ".png")
@@ -404,10 +455,18 @@ class mainclass():
                 self.SocialMedia.tweetPhoto(self.TWEET_TEXT, composite)
             except:
                 pass # In the event of an error tweeting, carry on
-            self.PRINTER.print_photo(composite, 'test-' + ShootTime)
-            #//c.print_photo('output.svg','test')
+            try:
+		print "Printing ... " + composite
+		self.PRINTER.print_photo(composite, 'test-' + ShootTime)
+            except:
+		pass # In the event that it couldn't print, carry on
+
+	    #//c.print_photo('output.svg','test')
         except GetOutOfLoop:
             pass
+        except Exception as e:
+            self.error_screen(self.SCREEN_ERROR, e)
+
         finally:
             return "ATTRACT"
 
@@ -501,8 +560,13 @@ class mainclass():
         """
         main pygame loop.
         """
+        print "WIDTH " + str(self.WIDTH)
         self.CONFIGURATION = configuration.ConfigFile("~/boothsettings.json")
+        print "WIDTH " + str(self.WIDTH)
+        print "CP1"
         self.CONFIGURATION .Load()
+        print "WIDTH " + str(self.WIDTH)
+
         self.debug_print_configuration(self.CONFIGURATION , None)
         #Set up variables
         self.SHOOTPHOTOSTORE = self.CONFIGURATION .photostore
@@ -530,8 +594,6 @@ class mainclass():
         self.ERROR_FONT_COLOUR = self.CONFIGURATION.ErrorFontColour
         self.CAMERA_MODULE = self.CONFIGURATION.CameraModule
         self.CAMERA_MODULE_FILE = self.CONFIGURATION .CameraFile
-        self.FLASH_MODULE = self.CONFIGURATION.FlashModule
-        self.FLASH_MODULE_FILE = self.CONFIGURATION .FlashFile
         self.ACCESS_TOKEN = self.CONFIGURATION.ACCESS_TOKEN
         self.ACCESS_SECRET = self.CONFIGURATION.ACCESS_SECRET
         self.CONSUMER_KEY = self.CONFIGURATION.CONSUMER_KEY
@@ -552,12 +614,6 @@ class mainclass():
         self.CamerObject = importlib.import_module(self.CAMERA_MODULE )
         self.mymethod = getattr(importlib.import_module(self.CAMERA_MODULE ), self.CAMERA_MODULE_FILE)()
 
-        self.FlashObject = importlib.import_module(self.FLASH_MODULE )
-        self.flashMethod = getattr(importlib.import_module(self.FLASH_MODULE ), self.FLASH_MODULE_FILE)()
-
-
-
-
         self.state = "ATTRACT"
         pygame.init()
         pygame.mixer.init(48000, -16, 1, 1024)
@@ -565,9 +621,12 @@ class mainclass():
         print "WIDTH " + str(self.WIDTH)
         print "HEIGHT " + str(self.HEIGHT)
         print(pygame.display.Info())
+        #size = pygame.display.list_modes()[0]
+        #screen = pygame.display.set_mode(size,pg.FULLSCREEN)
         #pygame.display.set_mode((WIDTH,HEIGHT),0,16)
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         pygame.mouse.set_visible(False)
+        pygame.display.toggle_fullscreen()
         self.background = pygame.Surface((self.WIDTH, self.HEIGHT))
         self.background = self.background.convert()
         self.background.fill((0, 0, 0))
@@ -580,31 +639,39 @@ class mainclass():
         self.c = pygame.time.Clock()
         while True:
             try:
-                self.event_logic()
-                #for event in pygame.event.get():
-                    #if event.type == pygame.KEYDOWN:
-                        #if event.key == pygame.K_q:
-                            #pygame.quit()
-                            #sys.exit()
-                        #elif event.key == pygame.K_p:
-                            #if self.state == "ATTRACT" or self.state =="TWEET" :
-                                #self.state = "PREEN"
-                        #elif event.key == pygame.K_s:
-                            #self.CAMERASOUND.play()
-                        #elif event.key == pygame.K_t:
-                            #self.state = "TWEET"
-                        #elif event.key == pygame.K_e:
-                            ##ErrorScreen(SCREEN_ERROR)
-                            #raise ValueError('A very specific bad thing happened')
+                #GPIO OVERRIDE
+                #if not GPIO.input(12):
+                #    pygame.quit()
+                #    sys.exit()
+                    
+                #if not GPIO.input(26):
+                #    if self.state == "ATTRACT" or self.state =="TWEET" :
+                #        self.state = "PREEN"
+                
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_q:
+                            pygame.quit()
+                            sys.exit()
+                        elif event.key == pygame.K_p:
+                            if self.state == "ATTRACT" or self.state =="TWEET" :
+                                self.state = "PREEN"
+                        elif event.key == pygame.K_s:
+                            self.CAMERASOUND.play()
+                        elif event.key == pygame.K_t:
+                            self.state = "TWEET"
+                        elif event.key == pygame.K_e:
+                            #ErrorScreen(SCREEN_ERROR)
+                            raise ValueError('A very specific bad thing happened')
 
-                #if self.state == "ATTRACT":
-                    #self.attract_screen(self.SCREEN_ATTRACT)
-                #if self.state == "TWEET":
-                    #self.twitter_latest(self.SCREEN_TWITTER,self.SCREEN_TWITTER_IMAGE)
-                    #self.state = "ATTRACT"
-                #if self.state == "PREEN":
-                    #self.state = self.preen_screen(photoshoot, self.SCREEN_PREEN,
-                                            #self.CONFIGURATION.preenTime)
+                if self.state == "ATTRACT":
+                    self.attract_screen(self.SCREEN_ATTRACT)
+                if self.state == "TWEET":
+                    self.twitter_latest(self.SCREEN_TWITTER,self.SCREEN_TWITTER_IMAGE)
+                    self.state = "ATTRACT"
+                if self.state == "PREEN":
+                    self.state = self.preen_screen(photoshoot, self.SCREEN_PREEN,
+                                            self.CONFIGURATION.preenTime)
             except Exception as e:
                 self.error_screen(self.SCREEN_ERROR, e)
 
