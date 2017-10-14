@@ -29,6 +29,7 @@ Packaging is missing templates folder and sample templates, and the boothconfigu
     sudo apt-get install python-cairo python-lxml python-rsvg python-twitter
     sudo apt-get install python-cups
     sudo apt-get install cups-pdf
+    sudo apt-get install python-rpi-gpio
     ```
 1. Install the pre-requistes (tweepy) - Currently looking at whether this replaces the python-twitter dependancy
     ```
