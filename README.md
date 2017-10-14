@@ -21,4 +21,23 @@ This project uses the Word-wrapped text display module located on the Pygame Cod
 ## Packaging issues
 Packaging is missing templates folder and sample templates, and the boothconfiguration file.
 
+## Setting up a raspberry pi based build environment.
+1. Create a projects folder - in this example it is assumed that the project folder is ~/projects - your folder may be different - adjust these instructions as neccesary.
+1. Install the pre-requistes
+    ```
+    sudo apt-get update
+    sudo apt-get install python-cairo python-lxml python-rsvg python-twitter
+    sudo apt-get install python-cups
+    sudo apt-get install cups-pdf
+    ```
+1. Install the pre-requistes (tweepy) - Currently looking at whether this replaces the python-twitter dependancy
+    ```
+    sudo apt-get install python-tweepy
+    ```
+1. clone the Selfietorium project into the ~/projects folder
+    ```
+    cd ~/projects
+    git clone https://github.com/TitaniumBunker/Selfietorium.git
+    ```
+    
 
