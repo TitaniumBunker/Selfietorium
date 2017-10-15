@@ -18,6 +18,9 @@ Selfietorium ships with the My underwood font, from Tension Type - My underwood 
 ## Notes
 This project uses the Word-wrapped text display module located on the Pygame Code Repository : http://www.pygame.org/pcr/text_rect/index.php by David Clark.
 
+While developing the selfitorium hardware, the PieDie was used (https://github.com/4tronix/PiDie) - it was the only GPIO based hardware that I had at the time.  A link is here for the relevant GPIO pin numbers
+
+
 ## Packaging issues
 Packaging is missing templates folder and sample templates, and the boothconfiguration file.
 
