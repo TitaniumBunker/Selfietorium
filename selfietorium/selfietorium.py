@@ -19,8 +19,7 @@ import StringIO
 import os
 from os.path import dirname
 import traceback
-
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 
 
@@ -57,7 +56,7 @@ class mainclass():
         # Constants
         #size = pygame.display.list_modes()[0]
 #screen = pygame.display.set_mode(size,pg.FULLSCREEN)
-        self.WIDTH =  720                    # Width of the window
+        self.WIDTH = 720                    # Width of the window
         self.HEIGHT = 576                    # Height of the window
         self.DPI = 90                        # Recalculate this based on your screen.
         self.SHOOTDIRECTORY = None           # Name of directory to store photographs taken
@@ -69,13 +68,15 @@ class mainclass():
         self.TWEET_TEXT = ""                 # Default tweet text to use when
                                              # tweeting pictures.
         self.mymethod = None
+        self.flashmethod = None                    # Flash.... Ahhh Saviour of the Universe
         self.background = None               # black image for clearing the screen
         self.CONFIGURATION = None
         #GPIO SETUP
-        #GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering  
-        #GPIO.setup(26, GPIO.IN,pull_up_down=GPIO.PUD_UP)    # set GPIO 25 as input  
-        #GPIO.setup(12, GPIO.IN,pull_up_down=GPIO.PUD_UP)    # set GPIO 12 as input
-
+        GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering  
+        GPIO.setup(26, GPIO.IN,pull_up_down=GPIO.PUD_UP)    # set GPIO 25 as input  
+        GPIO.setup(12, GPIO.IN,pull_up_down=GPIO.PUD_UP)    # set GPIO 12 as input
+        GPIO.setup(4,  GPIO.OUT)
+        
     def bgra_rgba(self, surface):
         """
 
@@ -177,7 +178,7 @@ class mainclass():
         text_file = open(os.path.join(outputdir, "Output.svg"), "w")
         text_file.write(update_node)
         text_file.close()
-        self.save_svgfile_to_img(outputdir,"Output.svg", outputdir, "Composite.png")
+        self.save_svg_to_img(update_node, outputdir, "Composite.png")
         return os.path.join(outputdir, "Composite.png")
 
 # Screen methods
@@ -303,7 +304,7 @@ class mainclass():
                         screenElements.append(ScreenElelement(IMG,0,0))
                         self.show_screen_elements(screenElements,1)
         except GetOutOfLoop:
-            print "Exception - GET OUT OF LOOPq"
+            print "Exception - GET OUT OF LOOP"
             pass
 
     def show_screen_elements(self,elemenets,time):
@@ -340,8 +341,7 @@ class mainclass():
         """
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q :#or
-                #if not GPIO.input(12):
+                if (event.key == pygame.K_q) or (not GPIO.input(12)):
                     pygame.quit()
                     sys.exit()
                 elif event.key == pygame.K_p : #or
@@ -427,7 +427,10 @@ class mainclass():
                     photo = self.mymethod.GetPhoto()
                     end = datetime.datetime.now()
                     preentimeSpent = (end - start).seconds
+		    #if preentime - preentimeSpent < 3:
+                    self.flashmethod.flash_on()	
                     if preentime - preentimeSpent < 1:
+                        shot.image = photo
                         break
                     svg_data = template.updateNode(svg_data, 'countDown',
                                                        str(preentime - preentimeSpent))
@@ -436,10 +439,11 @@ class mainclass():
                     self.screen.blit(prompt, my_rect.topleft)
                     self.screen.blit(pygame.transform.scale(photo,
                                      (pcamWidth, pcamHeight)), (picamx, picamy))
-                    shot.image = photo
+                    #shot.image = photo
                     pygame.display.flip()
                     pygame.time.delay(1)
                 self.CAMERASOUND.play()
+                self.flashmethod.flash_off()
                 shot.photo = photo
                 self.savephoto(self.SHOOTDIRECTORY, photo, shot.imageID + ".png")
                 pygame.time.delay(500)
@@ -453,7 +457,8 @@ class mainclass():
             print('Composite png located at ' + composite)
             try:
                 self.SocialMedia.tweetPhoto(self.TWEET_TEXT, composite)
-            except:
+            except Exception as e:
+                print str(e)
                 pass # In the event of an error tweeting, carry on
             try:
 		print "Printing ... " + composite
@@ -560,12 +565,8 @@ class mainclass():
         """
         main pygame loop.
         """
-        print "WIDTH " + str(self.WIDTH)
         self.CONFIGURATION = configuration.ConfigFile("~/boothsettings.json")
-        print "WIDTH " + str(self.WIDTH)
-        print "CP1"
         self.CONFIGURATION .Load()
-        print "WIDTH " + str(self.WIDTH)
 
         self.debug_print_configuration(self.CONFIGURATION , None)
         #Set up variables
@@ -594,6 +595,9 @@ class mainclass():
         self.ERROR_FONT_COLOUR = self.CONFIGURATION.ErrorFontColour
         self.CAMERA_MODULE = self.CONFIGURATION.CameraModule
         self.CAMERA_MODULE_FILE = self.CONFIGURATION .CameraFile
+        self.FLASH_MODULE = self.CONFIGURATION.FlashModule
+        self.FLASH_MODULE_FILE = self.CONFIGURATION.FlashFile
+
         self.ACCESS_TOKEN = self.CONFIGURATION.ACCESS_TOKEN
         self.ACCESS_SECRET = self.CONFIGURATION.ACCESS_SECRET
         self.CONSUMER_KEY = self.CONFIGURATION.CONSUMER_KEY
@@ -612,7 +616,10 @@ class mainclass():
             self.TWITTERAUTHOR)
 
         self.CamerObject = importlib.import_module(self.CAMERA_MODULE )
+        self.FlashObject = importlib.import_module(self.FLASH_MODULE)
+
         self.mymethod = getattr(importlib.import_module(self.CAMERA_MODULE ), self.CAMERA_MODULE_FILE)()
+        self.flashmethod = getattr(importlib.import_module(self.FLASH_MODULE), self.FLASH_MODULE_FILE)()	
 
         self.state = "ATTRACT"
         pygame.init()
@@ -639,16 +646,17 @@ class mainclass():
         self.c = pygame.time.Clock()
         while True:
             try:
-                #GPIO OVERRIDE
-                #if not GPIO.input(12):
-                #    pygame.quit()
-                #    sys.exit()
-                    
-                #if not GPIO.input(26):
-                #    if self.state == "ATTRACT" or self.state =="TWEET" :
-                #        self.state = "PREEN"
-                
+                if "RPi.GPIO" in sys.modules:
+                    #GPIO OVERRIDE
+                    if not GPIO.input(12):
+                        pygame.quit()
+                        sys.exit()
+                    if not GPIO.input(26):
+                        if self.state == "ATTRACT" or self.state =="TWEET" :
+                            self.state = "PREEN"
+
                 for event in pygame.event.get():
+                     
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_q:
                             pygame.quit()
@@ -663,7 +671,6 @@ class mainclass():
                         elif event.key == pygame.K_e:
                             #ErrorScreen(SCREEN_ERROR)
                             raise ValueError('A very specific bad thing happened')
-
                 if self.state == "ATTRACT":
                     self.attract_screen(self.SCREEN_ATTRACT)
                 if self.state == "TWEET":

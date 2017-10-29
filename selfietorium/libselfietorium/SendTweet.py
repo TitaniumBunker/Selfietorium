@@ -15,20 +15,25 @@ class selfie_Tweet(tweepy.StreamListener):
         hashtag,
         author
         ):
-        self.IsTest = True
+        self.IsTest = False
         self.verified = False
         self.latesttweet = None
+        # OAuth process, using the keys and tokens
         self.auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         self.auth.set_access_token(access_token, access_token_secret)
+        # Creation of the actual interface, using authentication
         self.api = tweepy.API(self.auth)
+        #self.auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+        #self.auth.set_access_token(access_token, access_token_secret)
+        #self.api = tweepy.API(self.auth)
         self.author = author.lstrip('@')
         self.hashtag = hashtag.lstrip('#')
-        if self.IsTest is False and self.api.verify_credentials() is not False:
-            self.verified = True
-            self.stream = tweepy.Stream(auth=self.auth, listener=self)
-            self.stream.userstream(async=True)
-        if self.IsTest is True:
-            self.verified = True
+        #if self.IsTest is False and self.api.verify_credentials() is not False:
+        #    self.verified = True
+        #    self.stream = tweepy.Stream(auth=self.auth, listener=self)
+        #    self.stream.userstream(async=True)
+        #if self.IsTest is True:
+        #    self.verified = True
 
     @property
     def Fake_Tweet(self):
@@ -66,14 +71,16 @@ class selfie_Tweet(tweepy.StreamListener):
     def tweet(self, status):
         """Send a simple test based tweet."""
         if self.verified:
-            self.api.PostUpdate(status)
+            self.api.update_status(status)
         else:
             print 'posting to twitter ' + status
 
     def tweetPhoto(self, status, media):
         """Sends a tweet which contains media (eg: a photograph)"""
-        self.api.PostMedia(status, media)
-
+        #self.api.PostMedia(status, media)
+        print 'tweeting ' + media
+        print 'status ' + status
+        self.api.update_with_media(filename=media, status=status)
 
     def on_status(self, data):
         """Method executed when a tweet is added to the user stream."""
@@ -91,5 +98,5 @@ class selfie_Tweet(tweepy.StreamListener):
         print status
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':   
     pass
