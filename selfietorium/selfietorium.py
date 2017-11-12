@@ -19,9 +19,12 @@ import StringIO
 import os
 from os.path import dirname
 import traceback
-import RPi.GPIO as GPIO
-
-
+GPIO_IMPORTED = False
+try:
+    import RPi.GPIO as GPIO
+    GPIO_IMPORTED = True
+except ImportError:
+    print("Unable to import GPIO")
 
 
 class GetOutOfLoop( Exception ):
@@ -72,10 +75,11 @@ class mainclass():
         self.background = None               # black image for clearing the screen
         self.CONFIGURATION = None
         #GPIO SETUP
-        GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering  
-        GPIO.setup(26, GPIO.IN,pull_up_down=GPIO.PUD_UP)    # set GPIO 25 as input  
-        GPIO.setup(12, GPIO.IN,pull_up_down=GPIO.PUD_UP)    # set GPIO 12 as input
-        GPIO.setup(4,  GPIO.OUT)
+        if (GPIO_IMPORTED):
+            GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering  
+            GPIO.setup(26, GPIO.IN,pull_up_down=GPIO.PUD_UP)    # set GPIO 25 as input  
+            GPIO.setup(12, GPIO.IN,pull_up_down=GPIO.PUD_UP)    # set GPIO 12 as input
+            GPIO.setup(4,  GPIO.OUT)
         
     def bgra_rgba(self, surface):
         """
@@ -360,7 +364,57 @@ class mainclass():
 
 
 
+    def configure(self, photoshoot, svg_data, preentime=10):
+        quit = False    
+        self.flashmethod.flash_on()
+        screenGeometry = template.findGeometry(svg_data)
+        scaleWidth = float(float(self.WIDTH) / float(screenGeometry[0]))
+        scaleHeight = float(float(self.HEIGHT) / float(screenGeometry[1]))
+        picam = template.findNode(svg_data, '//svg:rect[@id="picam"]')
+        pcamWidth = int(math.ceil(float(picam.attrib['width']) * scaleWidth))
+        pcamHeight = int(math.ceil(float(picam.attrib['height']) * scaleHeight))
+        picamx = int(math.floor(float(picam.attrib['x']) * scaleWidth))
+        picamy = int(math.floor(float(picam.attrib['y']) * scaleHeight))
+        
+        brighness = 50
+        contrast = 50
+        sturation = 50
 
+        while quit == False:
+               for event in pygame.event.get():
+                     
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_x:
+                            quit = True
+                        if event.key == pygame.K_g:
+                            quit = True
+                        if event.key == pygame.K_w:
+                            brighness = min(brighness + 1, 100)
+                        if event.key == pygame.K_s:
+                            brighness = max(brighness - 1, 0)
+                    
+                        if event.key == pygame.K_e:
+                            contrast = min(contrast + 1, 100)
+                        if event.key == pygame.K_d:
+                            contrast = max(contrast - 1, 0)
+                                            
+                        if event.key == pygame.K_r:
+                            sturation = min(sturation + 1, 100)
+                        if event.key == pygame.K_f:
+                            sturation = max(sturation - 1, 0)
+
+                    svg_data = template.updateNode(svg_data, 'brightness',str(brighness))
+                    svg_data = template.updateNode(svg_data, 'contrast',str(contrast))
+                    svg_data = template.updateNode(svg_data, 'saturation',str(sturation))
+
+                    photo = self.mymethod.GetPhoto(brighness,contrast,sturation)
+                    IMG = self.load_svg_string(svg_data)
+                    self.screen.blit(IMG, (0, 0))
+                    self.screen.blit(pygame.transform.scale(photo,
+                                     (pcamWidth, pcamHeight)), (picamx, picamy))
+
+                    pygame.display.flip()
+                    pygame.time.delay(1)
 
     def preen_screen(self, photoshoot, svg_data, preentime=10):
         """
@@ -394,7 +448,7 @@ class mainclass():
 
             for shot in photoshoot:
                 print (str(self.SCREEN_FONT))
-                print (str(self.SCREEN_FONT_SIZE))
+                p	
                 if not pygame.font:
                     raise RuntimeError("no pygame font module")
                 if not pygame.font.get_init():
@@ -589,6 +643,7 @@ class mainclass():
         self.SCREEN_ERROR = open('Screens/Error.svg').read()
         self.SCREEN_TWITTER = open('Screens/Tweet.svg').read()
         self.SCREEN_TWITTER_IMAGE = open('Screens/TweetImage.svg').read()
+        self.SCREEN_CONFIGURE = open('Screens/configure.svg').read()
 
         self.ERROR_FONT = self.CONFIGURATION.ErrorFont
         self.ERROR_FONT_SIZE = self.CONFIGURATION.ErrorFontSize
@@ -664,6 +719,9 @@ class mainclass():
                         elif event.key == pygame.K_p:
                             if self.state == "ATTRACT" or self.state =="TWEET" :
                                 self.state = "PREEN"
+                        elif event.key == pygame.K_c:
+                            if self.state == "ATTRACT" or self.state =="TWEET" :
+                                self.state = 'CONFIGURE'
                         elif event.key == pygame.K_s:
                             self.CAMERASOUND.play()
                         elif event.key == pygame.K_t:
@@ -675,6 +733,9 @@ class mainclass():
                     self.attract_screen(self.SCREEN_ATTRACT)
                 if self.state == "TWEET":
                     self.twitter_latest(self.SCREEN_TWITTER,self.SCREEN_TWITTER_IMAGE)
+                    self.state = "ATTRACT"
+                if self.state == "CONFIGURE":
+                    self.state = self.configure(photoshoot, self.SCREEN_CONFIGURE,self.CONFIGURATION.preenTime)
                     self.state = "ATTRACT"
                 if self.state == "PREEN":
                     self.state = self.preen_screen(photoshoot, self.SCREEN_PREEN,
