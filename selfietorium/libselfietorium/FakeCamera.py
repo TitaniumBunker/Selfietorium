@@ -13,7 +13,7 @@ class FakeCamera:
         self.cam = Image.open(open("libselfietorium/eagle.jpg",'rb'))
         self.cam2 = pygame.image.load("libselfietorium/eagle.jpg")
 
-    def GetPhoto(self):
+    def GetPhoto(self,brightness,contrast,saturation):
         """
         Returns a photo from the camera (by default it should be an eagle picture)
 

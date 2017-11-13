@@ -17,13 +17,17 @@ class PicamCamera:
         #self.stream = io.BytesIO()
 
 
-    def GetPhoto(self):
+    def GetPhoto(self,brightness,contrast,saturation):
         """
         Returns a photo from the PiCam module.
 
         :return:
             A photo from the picamera, converted to a surface
         """
+        self.cam.brightness = brightness
+        self.cam.contrast = contrast
+        self.cam.saturation = saturation
+
 	with io.BytesIO() as self.stream:
 		self.cam.capture(self.stream, format='jpeg', use_video_port=True)
         	#camera.capture(stream, format='jpeg', use_video_port=True)

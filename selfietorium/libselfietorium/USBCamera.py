@@ -13,7 +13,7 @@ class USBCamera:
         self.cam = pygame.camera.Camera(pygame.camera.list_cameras()[0])
         self.cam.start()
 
-    def GetPhoto(self):
+    def GetPhoto(self,brightness,contrast,saturation):
         """Return an image from the camera
 
         Returns:

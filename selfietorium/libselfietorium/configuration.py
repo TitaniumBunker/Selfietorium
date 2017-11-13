@@ -53,6 +53,9 @@ class ConfigFile:
         self.CONSUMER_SECRET = "<REPLACE THIS WITH YOUR API SECRET>"
         self.TweetAuthor =  "<REPLACE THIS WITH THE SCREEN NAME OF THE ACCOUNT SELFIETORIUM TWEETS AS>"
         self.TweetHashTag =  "<REPLACE THIS WITH THE HASHTAG FOR TWEETS>"
+        self.Brightness = 50
+        self.Contrast = 0
+        self.Saturation = 0
         if os.path.isfile(self.inifile ) == False:
             self.Save()
 
@@ -86,6 +89,9 @@ class ConfigFile:
             self.CONSUMER_SECRET = entry['CONSUMER_SECRET']
             self.TweetAuthor = entry["TweetAuthor"]
             self.TweetHashTag = entry["TweetHashTag"]
+            self.Brightness = entry["Brightness"]
+            self.Contrast = entry["Contrast"]
+            self.Saturation = entry["Saturation"]
             return entry
 
     def Save(self):
@@ -116,6 +122,10 @@ class ConfigFile:
         configuration['CONSUMER_SECRET'] = self.CONSUMER_SECRET
         configuration['TweetAuthor'] = self.TweetAuthor
         configuration['TweetHashTag'] = self.TweetHashTag
+        configuration['Brightness'] = self.Brightness 
+        configuration['Contrast'] = self.Contrast
+        configuration['Saturation'] = self.Saturation
+
         print self.inifile
         with open(self.inifile, mode='w') as f:
             json.dump(configuration, f, indent=2)

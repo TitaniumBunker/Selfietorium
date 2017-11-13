@@ -190,62 +190,112 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Vemana2000;-inkscape-font-specification:Vemana2000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       x="52.981216"
+       x="15.980719"
        y="422.34311"
        id="text3749"><tspan
          sodipodi:role="line"
          id="tspan3747"
-         x="52.981216"
+         x="15.980719"
          y="422.34311">Brightness</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Vemana2000;-inkscape-font-specification:Vemana2000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       x="525.39703"
-       y="393.64496"
+       x="339.39703"
+       y="430.63141"
        id="brightness"><tspan
          sodipodi:role="line"
          id="tspan3751"
-         x="525.39703"
-         y="393.64496">100</tspan></text>
+         x="339.39703"
+         y="430.63141">100</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Vemana2000;-inkscape-font-specification:Vemana2000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       x="90.509575"
-       y="504.02249"
+       x="17.269781"
+       y="489.83234"
        id="text3757"><tspan
          sodipodi:role="line"
          id="tspan3755"
-         x="90.509575"
-         y="504.02249">Saturation</tspan></text>
+         x="17.269781"
+         y="489.83234">Saturation</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Vemana2000;-inkscape-font-specification:Vemana2000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       x="479.03851"
-       y="475.32434"
+       x="339.39703"
+       y="490.36673"
        id="saturation"><tspan
          sodipodi:role="line"
          id="tspan3759"
-         x="479.03851"
-         y="475.32434">100</tspan></text>
+         x="339.39703"
+         y="490.36673">100</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Vemana2000;-inkscape-font-specification:Vemana2000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        x="17.660406"
-       y="541.55084"
+       y="553.09302"
        id="text3765"><tspan
          sodipodi:role="line"
          id="tspan3763"
          x="17.660406"
-         y="541.55084">Contrast</tspan></text>
+         y="553.09302">Contrast</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Vemana2000;-inkscape-font-specification:Vemana2000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       x="496.69891"
-       y="548.17352"
+       x="339.39703"
+       y="553.62744"
        id="contrast"><tspan
          sodipodi:role="line"
          id="tspan3767"
-         x="496.69891"
-         y="548.17352">100</tspan></text>
+         x="339.39703"
+         y="553.62744">100</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Vemana2000;-inkscape-font-specification:Vemana2000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="501.64136"
+       y="428.99942"
+       id="text3773"><tspan
+         sodipodi:role="line"
+         id="tspan3771"
+         x="501.64136"
+         y="428.99942">w/s</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Vemana2000;-inkscape-font-specification:Vemana2000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="499.68823"
+       y="488.73474"
+       id="text3777"><tspan
+         sodipodi:role="line"
+         id="tspan3775"
+         x="499.68823"
+         y="488.73474">r/f</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Vemana2000;-inkscape-font-specification:Vemana2000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="501.11401"
+       y="551.99542"
+       id="text3781"><tspan
+         sodipodi:role="line"
+         id="tspan3779"
+         x="501.11401"
+         y="551.99542">e/d</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Vemana2000;-inkscape-font-specification:Vemana2000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="472.41586"
+       y="51.474598"
+       id="text3785"><tspan
+         sodipodi:role="line"
+         id="tspan3783"
+         x="472.41586"
+         y="51.474598">X = Quit</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Vemana2000;-inkscape-font-specification:Vemana2000;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="472.41586"
+       y="115.49357"
+       id="text3789"><tspan
+         sodipodi:role="line"
+         id="tspan3787"
+         x="472.41586"
+         y="115.49357">G = Save</tspan></text>
   </g>
 </svg>

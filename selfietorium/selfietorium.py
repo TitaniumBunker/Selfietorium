@@ -375,10 +375,10 @@ class mainclass():
         pcamHeight = int(math.ceil(float(picam.attrib['height']) * scaleHeight))
         picamx = int(math.floor(float(picam.attrib['x']) * scaleWidth))
         picamy = int(math.floor(float(picam.attrib['y']) * scaleHeight))
-        
-        brighness = 50
-        contrast = 50
-        sturation = 50
+
+        brighness = self.BRIGHTNESS
+        contrast = self.CONTRAST
+        sturation = self.SATURATION
 
         while quit == False:
                for event in pygame.event.get():
@@ -387,6 +387,13 @@ class mainclass():
                         if event.key == pygame.K_x:
                             quit = True
                         if event.key == pygame.K_g:
+                            self.BRIGHTNESS = brighness
+                            self.CONTRAST= contrast 
+                            self.SATURATION=sturation 
+                            self.CONFIGURATION.Brightness = brighness
+                            self.CONFIGURATION.Contrast = contrast
+                            self.CONFIGURATION.Saturation = sturation
+                            self.CONFIGURATION.Save()
                             quit = True
                         if event.key == pygame.K_w:
                             brighness = min(brighness + 1, 100)
@@ -396,12 +403,12 @@ class mainclass():
                         if event.key == pygame.K_e:
                             contrast = min(contrast + 1, 100)
                         if event.key == pygame.K_d:
-                            contrast = max(contrast - 1, 0)
+                            contrast = max(contrast - 1, -100)
                                             
                         if event.key == pygame.K_r:
                             sturation = min(sturation + 1, 100)
                         if event.key == pygame.K_f:
-                            sturation = max(sturation - 1, 0)
+                            sturation = max(sturation - 1, -100)
 
                     svg_data = template.updateNode(svg_data, 'brightness',str(brighness))
                     svg_data = template.updateNode(svg_data, 'contrast',str(contrast))
@@ -620,7 +627,7 @@ class mainclass():
         main pygame loop.
         """
         self.CONFIGURATION = configuration.ConfigFile("~/boothsettings.json")
-        self.CONFIGURATION .Load()
+        self.CONFIGURATION.Load()
 
         self.debug_print_configuration(self.CONFIGURATION , None)
         #Set up variables
@@ -659,6 +666,10 @@ class mainclass():
         self.CONSUMER_SECRET = self.CONFIGURATION.CONSUMER_SECRET
         self.TWITTERAUTHOR = self.CONFIGURATION.TweetAuthor
         self.HASHTAG = self.CONFIGURATION.TweetHashTag
+        self.BRIGHTNESS = self.CONFIGURATION.Brightness
+        self.CONTRAST = self.CONFIGURATION.Contrast
+        self.SATURATION = self.CONFIGURATION.Saturation
+        print "Brightness = " + str(self.BRIGHTNESS)
 
         self.util = utilities.utilities()
 
