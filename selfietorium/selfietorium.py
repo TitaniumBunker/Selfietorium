@@ -381,8 +381,9 @@ class mainclass():
         sturation = self.SATURATION
 
         while quit == False:
-               for event in pygame.event.get():
-                     
+            self.c.tick(50)
+            try:
+                for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_x:
                             quit = True
@@ -410,18 +411,21 @@ class mainclass():
                         if event.key == pygame.K_f:
                             sturation = max(sturation - 1, -100)
 
-                    svg_data = template.updateNode(svg_data, 'brightness',str(brighness))
-                    svg_data = template.updateNode(svg_data, 'contrast',str(contrast))
-                    svg_data = template.updateNode(svg_data, 'saturation',str(sturation))
-
-                    photo = self.mymethod.GetPhoto(brighness,contrast,sturation)
-                    IMG = self.load_svg_string(svg_data)
-                    self.screen.blit(IMG, (0, 0))
-                    self.screen.blit(pygame.transform.scale(photo,
+                svg_data = template.updateNode(svg_data, 'brightness',str(brighness))
+                svg_data = template.updateNode(svg_data, 'contrast',str(contrast))
+                svg_data = template.updateNode(svg_data, 'saturation',str(sturation))
+                self.mymethod.Configure(brighness,contrast,sturation)
+                photo = self.mymethod.GetPhoto(brighness,contrast,sturation)
+                IMG = self.load_svg_string(svg_data)
+                self.screen.blit(IMG, (0, 0))
+                self.screen.blit(pygame.transform.scale(photo,
                                      (pcamWidth, pcamHeight)), (picamx, picamy))
 
-                    pygame.display.flip()
-                    pygame.time.delay(1)
+                pygame.display.flip()
+                pygame.time.delay(1)
+            except(e):
+                pass
+        self.flashmethod.flash_off()
 
     def preen_screen(self, photoshoot, svg_data, preentime=10):
         """
@@ -454,8 +458,6 @@ class mainclass():
             promptHeight = int(math.ceil(float(prompt.attrib['height']) * scaleHeight))
 
             for shot in photoshoot:
-                print (str(self.SCREEN_FONT))
-                p	
                 if not pygame.font:
                     raise RuntimeError("no pygame font module")
                 if not pygame.font.get_init():
@@ -485,7 +487,7 @@ class mainclass():
 
                 preentimeSpent = (end - start).seconds
                 while preentime - preentimeSpent > 0:
-                    photo = self.mymethod.GetPhoto()
+                    photo = self.mymethod.GetPhoto( self.BRIGHTNESS, self.CONTRAST, self.SATURATION)
                     end = datetime.datetime.now()
                     preentimeSpent = (end - start).seconds
 		    #if preentime - preentimeSpent < 3:
@@ -498,8 +500,8 @@ class mainclass():
                     IMG = self.load_svg_string(svg_data)
                     self.screen.blit(IMG, (0, 0))
                     self.screen.blit(prompt, my_rect.topleft)
-                    self.screen.blit(pygame.transform.scale(photo,
-                                     (pcamWidth, pcamHeight)), (picamx, picamy))
+                    self.mymethod.DisplayPreview(self.screen,pygame,picamx, picamy,pcamWidth, pcamHeight)
+                    #self.screen.blit(pygame.transform.scale(photo,(pcamWidth, pcamHeight)), (picamx, picamy))
                     #shot.image = photo
                     pygame.display.flip()
                     pygame.time.delay(1)

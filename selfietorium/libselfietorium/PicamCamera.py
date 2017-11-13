@@ -16,6 +16,10 @@ class PicamCamera:
         self.cam = picamera.PiCamera()
         #self.stream = io.BytesIO()
 
+    def Configure(self,brightness,contrast,saturation):
+        self.cam.brightness = brightness
+        self.cam.contrast = contrast
+        self.cam.saturation = saturation
 
     def GetPhoto(self,brightness,contrast,saturation):
         """

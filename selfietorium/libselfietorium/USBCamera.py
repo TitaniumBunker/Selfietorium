@@ -12,6 +12,9 @@ class USBCamera:
         pygame.camera.init()
         self.cam = pygame.camera.Camera(pygame.camera.list_cameras()[0])
         self.cam.start()
+    
+    def Configure(self,brightness,contrast,saturation):
+        pass
 
     def GetPhoto(self,brightness,contrast,saturation):
         """Return an image from the camera
@@ -20,9 +23,12 @@ class USBCamera:
             Image as a pygame surface
 
         """
+        self.cam.set_controls(brightness=brightness)
         img = self.cam.get_image()
         return img
 
+    def DisplayPreview(self,screen,pygame,picamx, picamy,pcamWidth, pcamHeight):
+        screen.blit(pygame.transform.scale(self.cam.get_image(),(pcamWidth, pcamHeight)), (picamx, picamy))
 
 
 if __name__ == '__main__':
