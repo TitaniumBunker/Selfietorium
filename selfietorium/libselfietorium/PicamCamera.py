@@ -15,11 +15,21 @@ class PicamCamera:
         print("Starting picam Camera Object")
         self.cam = picamera.PiCamera()
         #self.stream = io.BytesIO()
+        self.previewing = False
 
     def Configure(self,brightness,contrast,saturation):
         self.cam.brightness = brightness
         self.cam.contrast = contrast
         self.cam.saturation = saturation
+
+    def DisplayPreview(self,screen,pygame,picamx, picamy,pcamWidth, pcamHeight):
+        if (self.previewing == False):
+            Window = pygame.transform.scale(self.GetPhoto(self.cam.brightness,self.cam.contrast,self.cam.saturation),(pcamWidth, pcamHeight))
+            self.cam.start_preview(fullscreen=False, window = (picamx, picamy, pcamWidth, pcamHeight))
+
+    def HidePreview(self):
+        self.cam.stop_preview()
+        self.previewing = False
 
     def GetPhoto(self,brightness,contrast,saturation):
         """
@@ -33,7 +43,7 @@ class PicamCamera:
         self.cam.saturation = saturation
 
 	with io.BytesIO() as self.stream:
-		self.cam.capture(self.stream, format='jpeg', use_video_port=True)
+		self.cam.capture(self.stream, format='jpeg', use_video_port=False)
         	#camera.capture(stream, format='jpeg', use_video_port=True)
 		self.stream.seek(0)
         	image = Image.open(self.stream)

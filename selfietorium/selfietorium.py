@@ -487,13 +487,12 @@ class mainclass():
 
                 preentimeSpent = (end - start).seconds
                 while preentime - preentimeSpent > 0:
-                    photo = self.mymethod.GetPhoto( self.BRIGHTNESS, self.CONTRAST, self.SATURATION)
                     end = datetime.datetime.now()
                     preentimeSpent = (end - start).seconds
 		    #if preentime - preentimeSpent < 3:
                     self.flashmethod.flash_on()	
                     if preentime - preentimeSpent < 1:
-                        shot.image = photo
+                        #shot.image = photo
                         break
                     svg_data = template.updateNode(svg_data, 'countDown',
                                                        str(preentime - preentimeSpent))
@@ -505,6 +504,8 @@ class mainclass():
                     #shot.image = photo
                     pygame.display.flip()
                     pygame.time.delay(1)
+                self.mymethod.HidePreview()
+                photo = self.mymethod.GetPhoto( self.BRIGHTNESS, self.CONTRAST, self.SATURATION)    
                 self.CAMERASOUND.play()
                 self.flashmethod.flash_off()
                 shot.photo = photo
