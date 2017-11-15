@@ -484,7 +484,7 @@ class mainclass():
                     my_rect, self.SCREEN_FONT_COLOUR, (0, 0, 0, 0), 1)
                 start = datetime.datetime.now()
                 end = datetime.datetime.now()
-
+                self.mymethod.DisplayPreview(self.screen,pygame,picamx, picamy,pcamWidth, pcamHeight)
                 preentimeSpent = (end - start).seconds
                 while preentime - preentimeSpent > 0:
                     end = datetime.datetime.now()
@@ -499,20 +499,21 @@ class mainclass():
                     IMG = self.load_svg_string(svg_data)
                     self.screen.blit(IMG, (0, 0))
                     self.screen.blit(prompt, my_rect.topleft)
-                    self.mymethod.DisplayPreview(self.screen,pygame,picamx, picamy,pcamWidth, pcamHeight)
+                    #self.mymethod.DisplayPreview(self.screen,pygame,picamx, picamy,pcamWidth, pcamHeight)
                     #self.screen.blit(pygame.transform.scale(photo,(pcamWidth, pcamHeight)), (picamx, picamy))
                     #shot.image = photo
+                    # updating the whole screen flickers the camera - therefore we can 
+                    # just update the area that is required...
                     pygame.display.flip()
                     pygame.time.delay(1)
-                self.mymethod.HidePreview()
+                self.mymethod.HidePreview()                
                 photo = self.mymethod.GetPhoto( self.BRIGHTNESS, self.CONTRAST, self.SATURATION)    
                 self.CAMERASOUND.play()
-                self.flashmethod.flash_off()
+                self.flashmethod.flash_off()            
                 shot.photo = photo
-                self.savephoto(self.SHOOTDIRECTORY, photo, shot.imageID + ".png")
-                pygame.time.delay(500)
                 self.screen.blit(pygame.transform.scale(photo, (self.WIDTH, self.HEIGHT)), (0, 0))
                 pygame.display.flip()
+                self.savephoto(self.SHOOTDIRECTORY, photo, shot.imageID + ".png")
                 pygame.time.delay(2000)
 
             # Cache this...
