@@ -8,6 +8,7 @@ import pygame.display
 import rsvg
 import PIL.Image
 import sys
+import subprocess
 from libselfietorium import template
 from libselfietorium import configuration
 from libselfietorium import pygameTextRectangle
@@ -15,6 +16,7 @@ from libselfietorium import SendTweet
 from libselfietorium import utilities
 import datetime
 import base64
+import thread
 import StringIO
 import os
 from os.path import dirname
@@ -182,7 +184,8 @@ class mainclass():
         text_file = open(os.path.join(outputdir, "Output.svg"), "w")
         text_file.write(update_node)
         text_file.close()
-        self.save_svg_to_img(update_node, outputdir, "Composite.png")
+        #self.save_svg_to_img(update_node, outputdir, "Composite.png")
+        self.save_svgfile_to_img(outputdir,"Output.svg",outputdir,"Composite.png")
         return os.path.join(outputdir, "Composite.png")
 
 # Screen methods
@@ -193,17 +196,21 @@ class mainclass():
         :param filename:
         """
 	cmf = 'convert %s %s' % ( os.path.join(outputdir, svgfile), os.path.join(destination_outputdir, destination_filename))
-	     
-	import subprocess
-	subprocess.call (cmf,preexec_fn=os.setsid, shell=True)
-	IMG = pygame.image.load(os.path.join(destination_outputdir, destination_filename))	
-	IMG = pygame.transform.scale(IMG, pygame.Rect((0,0),(self.WIDTH, self.HEIGHT)).size)
-	IMG = IMG.convert()
-        self.screen.blit(self.background, (0, 0))
-        self.screen.blit(IMG, (0, 0))
-        pygame.display.flip()
-        pygame.time.delay(2000)
 
+	subprocess.call (cmf,preexec_fn=os.setsid, shell=True)
+	
+	
+    def print_svgfile_to_img(self, outputdir, svgfile, destination_outputdir, destination_filename):
+        """
+        :param svg:
+        :param outputdir:
+        :param filename:
+        """
+	cmf = 'inkscape -z -p  %s %s' % ( os.path.join(outputdir, svgfile))
+	     
+	
+	subprocess.call (cmf,preexec_fn=os.setsid, shell=True)
+	
 
     def save_svg_to_img(self, svg, outputdir, filename):
         """
@@ -427,6 +434,25 @@ class mainclass():
                 pass
         self.flashmethod.flash_off()
 
+    def someFunc(self,tphotoshoot, photoshoot):
+        print "someFunc was called"
+        composite = self.layout(tphotoshoot, photoshoot, self.SHOOTDIRECTORY)
+        print('Composite png located at ' + composite)
+            #try:
+            #    self.SocialMedia.tweetPhoto(self.TWEET_TEXT, composite)
+            #except Exception as e:
+            #    print str(e)
+            #    pass # In the event of an error tweeting, carry on
+            #try:
+	    #	print "Printing ... " + composite
+		#self.PRINTER.print_photo(composite, 'test-' + ShootTime)
+            #except:
+		#pass # In the event that it couldn't print, carry on
+
+	    #//c.print_photo('output.svg','test')
+
+
+
     def preen_screen(self, photoshoot, svg_data, preentime=10):
         """
         Preen Screen - allows the subjects the time to pose and get ready for their photo.
@@ -518,6 +544,7 @@ class mainclass():
 
             # Cache this...
             tphotoshoot = svg_data = open(self.CONFIGURATION.layout).read()
+            #thread.start_new_thread(self.someFunc, (tphotoshoot, photoshoot))            
             composite = self.layout(tphotoshoot, photoshoot, self.SHOOTDIRECTORY)
             print('Composite png located at ' + composite)
             try:
@@ -526,12 +553,11 @@ class mainclass():
                 print str(e)
                 pass # In the event of an error tweeting, carry on
             try:
-		print "Printing ... " + composite
-		self.PRINTER.print_photo(composite, 'test-' + ShootTime)
+	    	print "Printing ... " + composite
+		#self.PRINTER.print_photo(composite, 'test-' + ShootTime)
             except:
 		pass # In the event that it couldn't print, carry on
 
-	    #//c.print_photo('output.svg','test')
         except GetOutOfLoop:
             pass
         except Exception as e:
