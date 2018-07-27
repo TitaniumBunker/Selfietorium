@@ -3,8 +3,9 @@ sudo: required
 
 addons:
   sonarcloud:
+    organization: "titaniumbunker" 
     token:
-      secure: '$SONARQUBE_API_KEY'
+      secure: '$SONAR_TOKEN'
 
 
 language: python
