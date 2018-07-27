@@ -2,7 +2,7 @@ dist: trusty
 sudo: required
 
 addons:
-  sonarqube:
+  sonarcloud:
     token:
       secure: '$SONARQUBE_API_KEY'
 
@@ -22,7 +22,7 @@ before_install:
 install: true
  
 script:
-#   - sonar-scanner
+   - sonar-scanner
    - sudo dpkg-buildpackage -us -uc 
 
 before_deploy:
