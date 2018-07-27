@@ -4,6 +4,9 @@
 
 [![Documentation Status](https://readthedocs.org/projects/selfietorium/badge/?version=master)](http://selfietorium.readthedocs.io/en/master/?badge=master)
 
+[![Sonar Cloud Badge]
+(https://sonarcloud.io/api/project_badges/measure?project=titaniumbunker.selfietorium&metric=ncloc)](https://sonarcloud.io/dashboard?id=titaniumbunker.selfietorium)
+
 # Selfietorium
 A python based photo booth thing, being developed for a wedding November 2017 - will be running using raspberry pi
 
